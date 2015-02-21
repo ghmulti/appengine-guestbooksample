@@ -1,0 +1,17 @@
+# IntelliJ files
+.idea
+*.iml
+*.ids
+*.ipr
+*.iws
+*~
+atlassian-ide-plugin.xml
+
+# Build files
+build
+target
+classes
+unitDB
+
+.svn
+.gradle
