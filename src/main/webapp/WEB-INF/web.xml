@@ -35,38 +35,7 @@
     </filter-mapping>
 
     <servlet>
-        <servlet-name>SystemServiceServlet</servlet-name>
-        <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-        <init-param>
-            <param-name>services</param-name>
-            <param-value>com.ghmulti.appengine.endpoint.SampleApiEndpoint</param-value>
-        </init-param>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SystemServiceServlet</servlet-name>
-        <url-pattern>/_ah/spi/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>guestbook</servlet-name>
-        <servlet-class>com.ghmulti.appengine.servlet.GuestbookServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>guestbook</servlet-name>
-        <url-pattern>/guestbook</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>sign</servlet-name>
-        <servlet-class>com.ghmulti.appengine.servlet.SignGuestbookServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>sign</servlet-name>
-        <url-pattern>/sign</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>heyEndpoint</servlet-name>
+        <servlet-name>usersEndpoint</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>javax.ws.rs.Application</param-name>
@@ -87,7 +56,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>heyEndpoint</servlet-name>
+        <servlet-name>usersEndpoint</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 

@@ -1,5 +1,6 @@
-package com.ghmulti.appengine.model;
+package com.ghmulti.appengine.dto;
 
+import com.ghmulti.appengine.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.social.security.SocialUser;

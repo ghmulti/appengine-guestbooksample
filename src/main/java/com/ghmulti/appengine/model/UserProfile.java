@@ -1,6 +1,10 @@
 package com.ghmulti.appengine.model;
 
+import org.springframework.social.security.SocialUser;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_profile")
@@ -27,9 +31,11 @@ public class UserProfile {
     @Column(name = "role", length = 20, nullable = false)
     private Role role;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sign_in_provider", length = 20)
-    private SocialMediaService signInProvider;
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="user_profile", fetch=FetchType.EAGER)
+    private Set<SocialUser> socialUsers = new HashSet<SocialUser>();
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user_profile")
+    private AuthorizationToken authorizationToken;
 
     @Embedded
     private Address address;
@@ -82,19 +88,27 @@ public class UserProfile {
         this.role = role;
     }
 
-    public SocialMediaService getSignInProvider() {
-        return signInProvider;
-    }
-
-    public void setSignInProvider(SocialMediaService signInProvider) {
-        this.signInProvider = signInProvider;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<SocialUser> getSocialUsers() {
+        return socialUsers;
+    }
+
+    public void setSocialUsers(Set<SocialUser> socialUsers) {
+        this.socialUsers = socialUsers;
+    }
+
+    public AuthorizationToken getAuthorizationToken() {
+        return authorizationToken;
+    }
+
+    public void setAuthorizationToken(AuthorizationToken authorizationToken) {
+        this.authorizationToken = authorizationToken;
     }
 }

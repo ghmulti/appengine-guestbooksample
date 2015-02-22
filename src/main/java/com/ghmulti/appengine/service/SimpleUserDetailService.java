@@ -1,6 +1,6 @@
 package com.ghmulti.appengine.service;
 
-import com.ghmulti.appengine.model.SocialUserDetails;
+import com.ghmulti.appengine.dto.SocialUserDetails;
 import com.ghmulti.appengine.model.UserProfile;
 import com.ghmulti.appengine.repository.UsersRepository;
 import org.springframework.security.core.userdetails.UserDetails;
