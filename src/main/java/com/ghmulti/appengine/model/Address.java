@@ -1,10 +1,21 @@
 package com.ghmulti.appengine.model;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Address {
 
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "index")
     private String index;
 
     public String getCountry() {

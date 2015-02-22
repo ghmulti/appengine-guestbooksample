@@ -7,7 +7,7 @@ import org.springframework.context.MessageSource;
 
 @Configuration
 @ComponentScan(basePackages = { "com.ghmulti.appengine.service" })
-@Import({WebAppContext.class, PersistenceContext.class, SecurityContext.class, SocialContext.class})
+@Import({PersistenceContext.class})
 @PropertySource("classpath:application.properties")
 public class RootApplicationContext {
 

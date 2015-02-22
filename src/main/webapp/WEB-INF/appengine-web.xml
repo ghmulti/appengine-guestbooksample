@@ -3,6 +3,7 @@
     <application>perfect-trilogy-863</application>
     <version>3</version>
     <threadsafe>true</threadsafe>
+    <use-google-connector-j>true</use-google-connector-j>
 
     <system-properties>
         <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>

@@ -1,55 +1,45 @@
 package com.ghmulti.appengine.context;
 
+import com.google.appengine.api.utils.SystemProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-import java.util.Properties;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories(basePackages = { "com.ghmulti.appengine.repository" })
 @EnableTransactionManagement
 public class PersistenceContext {
 
-    @Resource
-    private Environment env;
-
-    @Bean
-    public DataSource dataSource() {
-        return null;
-    }
-
     @Bean
     public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+        transactionManager.setEntityManagerFactory(entityManagerFactory());
         return transactionManager;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+    public EntityManagerFactory entityManagerFactory() {
+        Map<String, String> properties = new HashMap();
+        if (SystemProperty.environment.value() ==
+                SystemProperty.Environment.Value.Production) {
+                    properties.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.GoogleDriver");
+                    properties.put("javax.persistence.jdbc.url", "jdbc:google:mysql://perfect-trilogy-863:caf");
+        } else {
+            properties.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
+            properties.put("javax.persistence.jdbc.url", "jdbc:mysql://127.0.0.1:3306/appengine");
+            properties.put("javax.persistence.jdbc.user", "multi");
+            properties.put("javax.persistence.jdbc.password", "multi");
+        }
 
-        entityManagerFactoryBean.setDataSource(dataSource());
-        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactoryBean.setPackagesToScan("com.ghmulti.appengine.model");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("caf", properties);
 
-        Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
-        jpaProperties.put("hibernate.format_sql", env.getRequiredProperty("hibernate.format_sql"));
-        jpaProperties.put("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
-        jpaProperties.put("hibernate.ejb.naming_strategy", env.getRequiredProperty("hibernate.ejb.naming_strategy"));
-        jpaProperties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
-
-        entityManagerFactoryBean.setJpaProperties(jpaProperties);
-
-        return entityManagerFactoryBean;
+        return emf;
     }
 }

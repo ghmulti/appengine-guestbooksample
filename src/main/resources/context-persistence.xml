@@ -11,36 +11,37 @@
 
     <context:property-placeholder location="classpath:application.properties"/>
 
-    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource">
-        <property name="driverClass" value="${db.driver}"/>
-        <property name="jdbcUrl" value="${db.url}"/>
-        <property name="username" value="${db.username}"/>
-        <property name="password" value="${db.password}"/>
-    </bean>
+    <tx:annotation-driven/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <tx:annotation-driven/>
+    <bean id="entityManagerFactory" factory-bean="entityManagerFactoryProviderBean" factory-method="createInstance" />
 
-    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+    <bean id="entityManagerFactoryProviderBean" class="com.ghmulti.appengine.service.EntityManagerFactoryProviderBean" />
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
-        <property name="packagesToScan" value="net.petrikainulainen.spring.social.signinmvc.user.model"/>
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                <prop key="hibernate.ejb.naming_strategy">${hibernate.ejb.naming_strategy}</prop>
-                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-            </props>
-        </property>
-    </bean>
+    <!--<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource" />-->
+        <!--<property name="jpaVendorAdapter">-->
+            <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />-->
+        <!--</property>-->
+        <!--<property name="jpaProperties">-->
+            <!--<props>-->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>-->
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <jpa:repositories base-package="com.ghmulti.appengine.repository"/>
+    <!--<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource">-->
+        <!--<property name="driverClass" value="com.mysql.jdbc.GoogleDriver"/>-->
+        <!--<property name="jdbcUrl" value="jdbc:google:mysql://perfect-trilogy-863:caf"/>-->
+        <!--<property name="username" value="root" />-->
+        <!--<property name="password" value="" />-->
+    <!--</bean>-->
+
+    <!--<jpa:repositories base-package="com.ghmulti.appengine.repository"/>-->
 
 </beans>

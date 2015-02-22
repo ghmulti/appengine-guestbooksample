@@ -1,7 +1,5 @@
 package com.ghmulti.appengine.model;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +8,7 @@ public class UserProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "email", length = 100, nullable = false, unique = true)
@@ -32,6 +31,7 @@ public class UserProfile {
     @Column(name = "sign_in_provider", length = 20)
     private SocialMediaService signInProvider;
 
+    @Embedded
     private Address address;
 
     public Address getAddress() {

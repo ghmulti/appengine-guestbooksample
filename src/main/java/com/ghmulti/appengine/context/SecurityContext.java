@@ -1,6 +1,6 @@
 package com.ghmulti.appengine.context;
 
-import com.ghmulti.appengine.repository.UserRepository;
+import com.ghmulti.appengine.repository.UsersRepository;
 import com.ghmulti.appengine.service.SimpleSocialUserDetailService;
 import com.ghmulti.appengine.service.SimpleUserDetailService;
 import org.springframework.context.annotation.Bean;
@@ -14,54 +14,41 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.security.SocialUserDetailsService;
-import org.springframework.social.security.SpringSocialConfigurer;
-
-import javax.inject.Inject;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityContext extends WebSecurityConfigurerAdapter {
 
-    @Inject
-    private UserRepository userRepository;
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
-            //Spring Security ignores request to static resources such as CSS or JS files.
             .ignoring()
-            .antMatchers("/css/**", "/images/**");
+            .antMatchers("/css/**", "/images/**", "/js/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            //Configures form login
             .formLogin()
             .loginPage("/login")
             .loginProcessingUrl("/login/authenticate")
             .failureUrl("/login?error=bad_credentials")
-            //Configures the logout function
             .and()
             .logout()
             .deleteCookies("JSESSIONID")
             .logoutUrl("/logout")
             .logoutSuccessUrl("/login")
-            //Configures url based authorization
             .and()
             .authorizeRequests()
-            //Anyone can access the urls
             .antMatchers(
                     "/auth/**",
                     "/login",
                     "/signup/**",
                     "/user/register/**"
             ).permitAll()
-            //The rest of the our application is protected.
-            .antMatchers("/**").hasAnyRole("FOODER", "COOKER")
-            //Adds the SocialAuthenticationFilter to Spring Security's filter chain.
-            .and()
-            .apply(new SpringSocialConfigurer());
+            .antMatchers("/**").hasAnyRole("ROLE_FOODER", "ROLE_COOKER");
+            //.and()
+            //.apply(new SpringSocialConfigurer());
     }
 
     @Override
@@ -82,7 +69,12 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public UsersRepository usersRepository() {
+        return new UsersRepository();
+    }
+
+    @Bean
     public UserDetailsService userDetailsService() {
-        return new SimpleUserDetailService(userRepository);
+        return new SimpleUserDetailService(usersRepository());
     }
 }
