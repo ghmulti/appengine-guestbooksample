@@ -1,4 +1,4 @@
-package com.ghmulti.appengine;
+package com.ghmulti.appengine.servlet;
 
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.users.User;

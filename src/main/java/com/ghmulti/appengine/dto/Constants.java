@@ -1,4 +1,4 @@
-package com.ghmulti.appengine;
+package com.ghmulti.appengine.dto;
 
 /**
  * Contains the client IDs and scopes for allowed clients consuming your API.

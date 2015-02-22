@@ -1,4 +1,4 @@
-package com.ghmulti.appengine;
+package com.ghmulti.appengine.dto;
 
 public class ApiResponse {
 

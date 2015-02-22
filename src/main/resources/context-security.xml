@@ -12,12 +12,14 @@
     <security:http pattern="/js/**" security="none" />
 
     <security:http use-expressions="true">
+        <security:intercept-url pattern="/rest/**" access="permitAll"/>
         <security:intercept-url pattern="/login.jsp" access="permitAll"/>
+        <security:intercept-url pattern="/login/authenticate" access="permitAll"/>
         <security:intercept-url pattern="/signin/**" access="permitAll"/>
         <security:intercept-url pattern="/user/register/**" access="permitAll"/>
 
         <security:form-login
-                login-page="/login"
+                login-page="/login.jsp"
                 login-processing-url="/login/authenticate"
                 username-parameter="username"
                 password-parameter="password" />
@@ -36,7 +38,7 @@
         <constructor-arg index="1" ref="userIdSource"/>
         <constructor-arg index="2" ref="usersConnectionRepository"/>
         <constructor-arg index="3" ref="connectionFactoryLocator"/>
-        <property name="signupUrl" value="/user/register"/>
+        <property name="signupUrl" value="/rest/hey"/>
     </bean>
 
     <security:authentication-manager alias="authenticationManager">
