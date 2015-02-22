@@ -8,11 +8,10 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
     <mvc:annotation-driven/>
-
-    <mvc:resources mapping="/static/**" location="/static/"/>
+    <!--<mvc:resources mapping="/static/**" location="/static/"/>-->
     <mvc:default-servlet-handler/>
 
-    <context:component-scan base-package="com.ghmulti.appengine.controller"/>
+    <!--<context:component-scan base-package="com.ghmulti.appengine.controller"/>-->
 
     <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="exceptionMappings">

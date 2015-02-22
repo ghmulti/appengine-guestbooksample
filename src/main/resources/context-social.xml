@@ -16,17 +16,9 @@
     <facebook:config app-id="${facebook.app.id}" app-secret="${facebook.app.secret}"/>
     <twitter:config app-id="${twitter.consumer.key}" app-secret="${twitter.consumer.secret}"/>
 
-    <!--
-        Configures the connection repository. This application uses JDBC
-        connection repository which saves connection details to database.
-        This repository uses the data source bean for obtaining database
-        connection.
-    -->
-    <social:jdbc-connection-repository/>
+    <!--<social:jdbc-connection-repository/>-->
+    <social:in-memory-connection-repository />
 
-    <!--
-        This bean manages the connection flow between the account provider and application.
-    -->
     <bean id="connectController" class="org.springframework.social.connect.web.ConnectController" autowire="constructor"/>
 
 </beans>

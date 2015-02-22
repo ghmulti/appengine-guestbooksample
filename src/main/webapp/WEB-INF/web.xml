@@ -35,57 +35,24 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:context-root.xml</param-value>
     </context-param>
 
-    <!--<listener>-->
-        <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
-    <!--</listener>-->
-    <!--<context-param>-->
-        <!--<param-name>contextClass</param-name>-->
-        <!--<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>-->
-    <!--</context-param>-->
-    <!--<context-param>-->
-        <!--<param-name>contextConfigLocation</param-name>-->
-        <!--<param-value>com.ghmulti.appengine.context.RootApplicationContext</param-value>-->
-    <!--</context-param>-->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
 
-    <!--<servlet>-->
-        <!--<servlet-name>springDispatcherServlet</servlet-name>-->
-        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
-        <!--<init-param>-->
-            <!--<param-name>contextClass</param-name>-->
-            <!--<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>-->
-        <!--</init-param>-->
-        <!--<init-param>-->
-            <!--<param-name>contextConfigLocation</param-name>-->
-            <!--<param-value>com.ghmulti.appengine.context.RootApplicationContext</param-value>-->
-        <!--</init-param>-->
-        <!--<load-on-startup>1</load-on-startup>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>springDispatcherServlet</servlet-name>-->
-        <!--<url-pattern>/spring/*</url-pattern>-->
-    <!--</servlet-mapping>-->
-
-    <!--<servlet>-->
-        <!--<servlet-name>springXmlDispatcherServlet</servlet-name>-->
-        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
-        <!--<init-param>-->
-            <!--<param-name>contextConfigLocation</param-name>-->
-            <!--<param-value>classpath:context-root.xml</param-value>-->
-        <!--</init-param>-->
-        <!--<load-on-startup>1</load-on-startup>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>springXmlDispatcherServlet</servlet-name>-->
-        <!--<url-pattern>/xmlspring/*</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>

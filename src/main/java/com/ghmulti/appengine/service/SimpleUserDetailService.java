@@ -7,13 +7,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import javax.inject.Inject;
+
 public class SimpleUserDetailService implements UserDetailsService {
 
+    @Inject
     private UsersRepository usersRepository;
-
-    public SimpleUserDetailService(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

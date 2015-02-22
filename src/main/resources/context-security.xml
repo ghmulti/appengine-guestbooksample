@@ -12,10 +12,8 @@
     <security:http pattern="/js/**" security="none" />
 
     <security:http use-expressions="true">
-        <security:intercept-url pattern="/auth/**" access="permitAll"/>
-        <security:intercept-url pattern="/login" access="permitAll"/>
+        <security:intercept-url pattern="/login.jsp" access="permitAll"/>
         <security:intercept-url pattern="/signin/**" access="permitAll"/>
-        <security:intercept-url pattern="/signup/**" access="permitAll"/>
         <security:intercept-url pattern="/user/register/**" access="permitAll"/>
 
         <security:form-login
@@ -30,10 +28,24 @@
 
         <security:intercept-url pattern="/**" access="hasAnyRole('ROLE_FOODER', 'ROLE_COOKER')"/>
 
-        <!--<security:custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER" />-->
+        <security:custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER" />
     </security:http>
 
+    <bean id="socialAuthenticationFilter" class="org.springframework.social.security.SocialAuthenticationFilter">
+        <constructor-arg index="0" ref="authenticationManager"/>
+        <constructor-arg index="1" ref="userIdSource"/>
+        <constructor-arg index="2" ref="usersConnectionRepository"/>
+        <constructor-arg index="3" ref="connectionFactoryLocator"/>
+        <property name="signupUrl" value="/user/register"/>
+    </bean>
+
     <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider ref="socialAuthenticationProvider"/>
+
+        <security:authentication-provider user-service-ref="userDetailsService">
+            <security:password-encoder ref="passwordEncoder"/>
+        </security:authentication-provider>
+
         <security:authentication-provider>
             <security:user-service>
                 <security:user name="tom" authorities="ROLE_FOODER" password="1234" />
@@ -41,6 +53,21 @@
         </security:authentication-provider>
     </security:authentication-manager>
 
+    <bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider">
+        <constructor-arg index="0" ref="usersConnectionRepository"/>
+        <constructor-arg index="1" ref="socialUserDetailsService"/>
+    </bean>
+
+    <bean id="socialUserDetailsService" class="com.ghmulti.appengine.service.SimpleSocialUserDetailService">
+        <constructor-arg index="0" ref="userDetailsService"/>
+    </bean>
+
+    <bean id="userDetailsService" class="com.ghmulti.appengine.service.SimpleUserDetailService" />
+
     <bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource"/>
+
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg index="0" value="10"/>
+    </bean>
 
 </beans>

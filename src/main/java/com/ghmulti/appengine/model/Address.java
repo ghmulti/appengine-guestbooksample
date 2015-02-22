@@ -13,10 +13,10 @@ public class Address {
     private String city;
 
     @Column(name = "address")
-    private String address;
+    private String postAddress;
 
     @Column(name = "index")
-    private String index;
+    private String postIndex;
 
     public String getCountry() {
         return country;
@@ -34,19 +34,19 @@ public class Address {
         this.city = city;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPostAddress() {
+        return postAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPostAddress(String postAddress) {
+        this.postAddress = postAddress;
     }
 
-    public String getIndex() {
-        return index;
+    public String getPostIndex() {
+        return postIndex;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public void setPostIndex(String postIndex) {
+        this.postIndex = postIndex;
     }
 }
