@@ -11,6 +11,12 @@
 
     <context:property-placeholder location="classpath:application.properties"/>
 
+    <jpa:repositories base-package="com.ghmulti.appengine.repository"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager" />
+
+    <bean id="exceptionTranslation" class="org.springframework.orm.hibernate4.HibernateExceptionTranslator" />
+
     <tx:annotation-driven/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -20,28 +26,5 @@
     <bean id="entityManagerFactory" factory-bean="entityManagerFactoryProviderBean" factory-method="createInstance" />
 
     <bean id="entityManagerFactoryProviderBean" class="com.ghmulti.appengine.service.EntityManagerFactoryProviderBean" />
-
-    <!--<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
-        <!--<property name="dataSource" ref="dataSource" />-->
-        <!--<property name="jpaVendorAdapter">-->
-            <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />-->
-        <!--</property>-->
-        <!--<property name="jpaProperties">-->
-            <!--<props>-->
-                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>-->
-                <!--<prop key="hibernate.show_sql">true</prop>-->
-                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
-            <!--</props>-->
-        <!--</property>-->
-    <!--</bean>-->
-
-    <!--<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource">-->
-        <!--<property name="driverClass" value="com.mysql.jdbc.GoogleDriver"/>-->
-        <!--<property name="jdbcUrl" value="jdbc:google:mysql://perfect-trilogy-863:caf"/>-->
-        <!--<property name="username" value="root" />-->
-        <!--<property name="password" value="" />-->
-    <!--</bean>-->
-
-    <!--<jpa:repositories base-package="com.ghmulti.appengine.repository"/>-->
 
 </beans>

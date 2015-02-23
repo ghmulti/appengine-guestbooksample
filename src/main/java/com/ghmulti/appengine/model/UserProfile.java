@@ -1,7 +1,5 @@
 package com.ghmulti.appengine.model;
 
-import org.springframework.social.security.SocialUser;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,10 +29,10 @@ public class UserProfile {
     @Column(name = "role", length = 20, nullable = false)
     private Role role;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="user_profile", fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userProfile")
     private Set<SocialUser> socialUsers = new HashSet<SocialUser>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user_profile")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userProfile")
     private AuthorizationToken authorizationToken;
 
     @Embedded

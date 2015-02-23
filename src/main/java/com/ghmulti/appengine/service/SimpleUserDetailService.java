@@ -2,7 +2,7 @@ package com.ghmulti.appengine.service;
 
 import com.ghmulti.appengine.dto.SocialUserDetails;
 import com.ghmulti.appengine.model.UserProfile;
-import com.ghmulti.appengine.repository.UsersRepository;
+import com.ghmulti.appengine.repository.UserProfileRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,11 +12,11 @@ import javax.inject.Inject;
 public class SimpleUserDetailService implements UserDetailsService {
 
     @Inject
-    private UsersRepository usersRepository;
+    private UserProfileRepository userProfileRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserProfile user = usersRepository.findByEmail(username);
+        UserProfile user = userProfileRepository.findByEmailAddress(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("No user with username " + username);
@@ -28,7 +28,6 @@ public class SimpleUserDetailService implements UserDetailsService {
                 .lastName(user.getLastName())
                 .password(user.getPassword())
                 .role(user.getRole())
-                .socialSignInProvider(user.getSignInProvider())
                 .username(user.getEmail())
                 .build();
 

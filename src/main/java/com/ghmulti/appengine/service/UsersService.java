@@ -1,10 +1,10 @@
 package com.ghmulti.appengine.service;
 
+import com.ghmulti.appengine.dto.AuthenticatedUserToken;
 import com.ghmulti.appengine.exception.AuthenticationException;
 import com.ghmulti.appengine.model.AuthorizationToken;
 import com.ghmulti.appengine.model.UserProfile;
-import com.ghmulti.appengine.repository.UserRepository;
-import com.ghmulti.appengine.dto.AuthenticatedUserToken;
+import com.ghmulti.appengine.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.UsersConnectionRepository;
@@ -14,12 +14,12 @@ import java.util.List;
 
 public class UsersService {
 
-    private UserRepository userRepository;
+    private UserProfileRepository userRepository;
 
     private UsersConnectionRepository jpaUsersConnectionRepository;
 
     @Autowired
-    public UsersService(UsersConnectionRepository usersConnectionRepository, UserRepository userRepository) {
+    public UsersService(UsersConnectionRepository usersConnectionRepository, UserProfileRepository userRepository) {
         this.jpaUsersConnectionRepository = usersConnectionRepository;
         this.userRepository = userRepository;
     }

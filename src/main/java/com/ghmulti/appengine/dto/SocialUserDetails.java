@@ -15,7 +15,6 @@ public class SocialUserDetails extends SocialUser {
     private String firstName;
     private String lastName;
     private Role role;
-    private SocialMediaService socialSignInProvider;
 
     public SocialUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
@@ -37,10 +36,6 @@ public class SocialUserDetails extends SocialUser {
         return role;
     }
 
-    public SocialMediaService getSocialSignInProvider() {
-        return socialSignInProvider;
-    }
-
     public static class Builder {
 
         private Long id;
@@ -49,7 +44,6 @@ public class SocialUserDetails extends SocialUser {
         private String lastName;
         private String password;
         private Role role;
-        private SocialMediaService socialSignInProvider;
         private Set<GrantedAuthority> authorities;
 
         public Builder() {
@@ -89,11 +83,6 @@ public class SocialUserDetails extends SocialUser {
             return this;
         }
 
-        public Builder socialSignInProvider(SocialMediaService socialSignInProvider) {
-            this.socialSignInProvider = socialSignInProvider;
-            return this;
-        }
-
         public Builder username(String username) {
             this.username = username;
             return this;
@@ -106,7 +95,6 @@ public class SocialUserDetails extends SocialUser {
             user.firstName = firstName;
             user.lastName = lastName;
             user.role = role;
-            user.socialSignInProvider = socialSignInProvider;
 
             return user;
         }

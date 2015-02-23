@@ -9,6 +9,8 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>com.ghmulti.appengine.model.UserProfile</class>
+        <class>com.ghmulti.appengine.model.AuthorizationToken</class>
+        <class>com.ghmulti.appengine.model.SocialUser</class>
 
         <properties>
             <property name="javax.persistence.jdbc.user" value="root" />
